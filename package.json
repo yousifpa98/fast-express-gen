@@ -1,0 +1,24 @@
+{
+  "name": "fast-express-gen",
+  "version": "1.0.3",
+  "description": "CLI tool to generate an Express.js boilerplate",
+  "main": "index.js",
+  "bin": {
+    "fast-express-gen": "./bin/index.mjs"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "express",
+    "cli",
+    "boilerplate"
+  ],
+  "author": "Yousif Paulus",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "inquirer": "^12.3.2"
+  }
+}
