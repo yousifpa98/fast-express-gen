@@ -107,6 +107,8 @@ npm run dev
 
 Contributions are welcome! If you'd like to improve this tool, feel free to fork the repository and open a pull request.
 
+[GitHub](https://github.com/yousifpa98/fast-express-gen)
+
 ---
 
 ## 📝 License

@@ -1,6 +1,6 @@
 {
   "name": "fast-express-gen",
-  "version": "1.0.3",
+  "version": "1.0.6",
   "description": "CLI tool to generate an Express.js boilerplate",
   "main": "index.js",
   "bin": {
@@ -16,9 +16,10 @@
     "boilerplate"
   ],
   "author": "Yousif Paulus",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "chalk": "^5.4.1",
-    "inquirer": "^12.3.2"
+    "inquirer": "^12.3.2",
+    "ora": "^8.1.1"
   }
 }

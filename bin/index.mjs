@@ -2,9 +2,10 @@
 
 import fs from "fs/promises";
 import path from "path";
-import { execSync } from "child_process";
+import { spawn } from "child_process";
 import inquirer from "inquirer";
 import chalk from "chalk";
+import ora from "ora";
 
 const TEMPLATE_DIR = path
   .resolve(
@@ -30,13 +31,18 @@ async function main() {
   await fs.mkdir(targetDir, { recursive: true });
   await copyTemplateFiles(TEMPLATE_DIR, targetDir);
 
-  console.log(chalk.yellow("Installing dependencies..."));
-  execSync(`cd ${projectName} && npm install`, { stdio: "inherit" });
+  try {
+    await installDependencies(targetDir);
+  } catch {
+    await fs.rm(targetDir, { recursive: true, force: true });
+    process.exit(1);
+  }
 
   console.log(chalk.green("Your Express project is ready! 🚀"));
   console.log(`\nRun the following commands to get started:\n`);
   console.log(chalk.blue(`cd ${projectName}`));
   console.log(chalk.blue("npm run dev"));
+  console.log(chalk.cyan("\nYour server will be running on http://localhost:3000"));
 }
 
 async function copyTemplateFiles(src, dest) {
@@ -53,6 +59,27 @@ async function copyTemplateFiles(src, dest) {
       await fs.copyFile(srcPath, destPath);
     }
   }
+}
+
+async function installDependencies(projectName) {
+  const spinner = ora("Installing dependencies...").start();
+
+  return new Promise((resolve, reject) => {
+    const process = spawn("npm", ["install", "--silent"], {
+      cwd: projectName,
+      stdio: "ignore",
+    });
+
+    process.on("close", (code) => {
+      if (code === 0) {
+        spinner.succeed("Dependencies installed successfully! 🚀");
+        resolve();
+      } else {
+        spinner.fail("Failed to install dependencies. Please run `npm install` manually.");
+        reject(new Error("Dependency installation failed"));
+      }
+    });
+  });
 }
 
 main().catch((err) => console.error(chalk.red(err)));
