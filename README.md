@@ -1,6 +1,6 @@
 # Fast Express Gen
 
-🚀 **Fast Express Gen** is a CLI tool designed to generate a complete Express.js boilerplate in seconds. It provides a robust starting point for backend development with pre-configured features like middleware, routing, and error handling.
+🚀 **Fast Express Gen** is a CLI tool designed to generate a complete Express.js boilerplate in seconds. It provides a robust starting point for backend development with pre-configured features like middleware, routing, and error handling. Now supports both **JavaScript** and **TypeScript**!
 
 ---
 
@@ -8,7 +8,7 @@
 
 - **Express.js Setup**: Fully configured Express server with modular architecture.
 - **Middlewares**: Pre-installed and configured middlewares for security, logging, and compression.
-- **Customization**: Choose your project name and structure.
+- **Customization**: Choose your project name and whether to use JavaScript or TypeScript.
 - **Developer-Friendly**: Includes `nodemon` for hot-reloading and a `README.md` template for your generated project.
 
 ---
@@ -42,6 +42,8 @@ Example:
 fast-express-gen my-awesome-api
 ```
 
+You will then be prompted to select **JavaScript** or **TypeScript** for your project.
+
 This will create a new directory `my-awesome-api` with a ready-to-use Express.js boilerplate.
 
 ---
@@ -50,6 +52,7 @@ This will create a new directory `my-awesome-api` with a ready-to-use Express.js
 
 Below is the structure of the generated project:
 
+### **JavaScript Version**
 ```
 <project-name>/
 ├── nodemon.json
@@ -64,6 +67,24 @@ Below is the structure of the generated project:
     ├── routes/
     │   └── index.js
     └── server.js
+```
+
+### **TypeScript Version**
+```
+<project-name>/
+├── nodemon.json
+├── package.json
+├── tsconfig.json
+├── README.md
+└── src/
+    ├── app.ts
+    ├── controllers/
+    │   └── homeController.ts
+    ├── middleware/
+    │   └── logger.ts
+    ├── routes/
+    │   └── index.ts
+    └── server.ts
 ```
 
 ---
@@ -91,7 +112,8 @@ Below is the structure of the generated project:
 ```
 Welcome to fast-express-gen!
 ✔ Project name: my-awesome-api
-Creating project in /path/to/my-awesome-api...
+✔ Choose your project language: TypeScript
+Creating TypeScript project in /path/to/my-awesome-api...
 Installing dependencies...
 Your Express project is ready! 🚀
 

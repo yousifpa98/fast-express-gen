@@ -7,29 +7,47 @@ import inquirer from "inquirer";
 import chalk from "chalk";
 import ora from "ora";
 
-const TEMPLATE_DIR = path
+const TEMPLATE_DIR_JS = path
   .resolve(
     path.dirname(new URL(import.meta.url).pathname),
     "../templates/boilerplate"
   )
   .replace(/^\/([a-zA-Z]:)/, "$1");
 
+const TEMPLATE_DIR_TS = path
+  .resolve(
+    path.dirname(new URL(import.meta.url).pathname),
+    "../templates/boilerplate-ts"
+  )
+  .replace(/^\/([a-zA-Z]:)/, "$1");
+
 async function main() {
   console.log(chalk.cyan("Welcome to fast-express-gen!"));
 
-  const { projectName } = await inquirer.prompt([
+  const { projectName, language } = await inquirer.prompt([
     {
       type: "input",
       name: "projectName",
       message: "Project name:",
       default: "my-app",
     },
+    {
+      type: "list",
+      name: "language",
+      message: "Choose your project language:",
+      choices: [
+        { name: chalk.yellow("JavaScript"), value: "js" },
+        { name: chalk.blue("TypeScript"), value: "ts" }
+      ],
+    },
   ]);
 
   const targetDir = path.join(process.cwd(), projectName);
-  console.log(chalk.green(`Creating project in ${targetDir}...`));
+  const templateDir = language === "ts" ? TEMPLATE_DIR_TS : TEMPLATE_DIR_JS;
+
+  console.log(chalk.green(`Creating ${language === "ts" ? "TypeScript" : "JavaScript"} project in ${targetDir}...`));
   await fs.mkdir(targetDir, { recursive: true });
-  await copyTemplateFiles(TEMPLATE_DIR, targetDir);
+  await copyTemplateFiles(templateDir, targetDir);
 
   try {
     await installDependencies(targetDir);
