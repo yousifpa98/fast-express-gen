@@ -4,7 +4,7 @@ import helmet from "helmet";
 import compression from "compression";
 import morgan from "morgan";
 
-import routes from "./routes";
+import routes from './routes/index.js';
 
 const app = express();
 
